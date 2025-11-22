@@ -8,7 +8,7 @@ export default function Bills() {
         {
             id: 1,
             name: "Rent",
-            amount: 1500,
+            amount: 1500.00,
             category: "Housing",
             dueDate: "2024-12-01",
             splitType: "equal"
@@ -16,7 +16,7 @@ export default function Bills() {
         {
             id: 2,
             name: "Electric",
-            amount: 120,
+            amount: 120.00,
             category: "Utilities",
             dueDate: "2024-12-05",
             splitType: "equal"
@@ -34,18 +34,19 @@ export default function Bills() {
     };
 
     return (
-        <Container>
-            <Row className="mb-4">
+        <Container style={{ maxWidth: '1400px' }} className="py-5">
+            <Row className="mb-5 align-items-center">
                 <Col>
-                    <h1>Bills Dashboard</h1>
-                    <p className="text-muted">Manage your household bills and track payments</p>
+                    <h1 className="display-4 mb-2">Bills Dashboard</h1>
+                    <p className="lead text-muted mb-0">Manage your household bills and track payments</p>
                 </Col>
                 <Col xs="auto">
-                    <Button 
-                        variant="primary" 
+                    <Button
+                        variant={showForm ? 'outline-secondary' : 'primary'}
+                        size="lg"
                         onClick={() => setShowForm(!showForm)}
                     >
-                        {showForm ? 'Cancel' : 'Add Bill'}
+                        {showForm ? 'Cancel' : '+ Add Bill'}
                     </Button>
                 </Col>
             </Row>
@@ -58,9 +59,9 @@ export default function Bills() {
                 </Row>
             )}
 
-            <Row>
+            <Row className="g-4 justify-content-center">
                 {bills.length === 0 ? (
-                    <Col>
+                    <Col md={8}>
                         <Card className="text-center p-5">
                             <Card.Body>
                                 <h3>No bills yet</h3>
@@ -70,7 +71,7 @@ export default function Bills() {
                     </Col>
                 ) : (
                     bills.map(bill => (
-                        <Col md={6} lg={4} key={bill.id} className="mb-3">
+                        <Col xs={12} md={6} key={bill.id}>
                             <BillCard bill={bill} onDelete={deleteBill} />
                         </Col>
                     ))

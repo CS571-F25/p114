@@ -34,27 +34,27 @@ export default function BillForm({ onSubmit, onCancel }) {
     };
 
     return (
-        <Card>
+        <Card className="shadow-sm">
             <Card.Body>
-                <Card.Title>Add New Bill</Card.Title>
+                <Card.Title className="mb-4">Add New Bill</Card.Title>
                 <Form onSubmit={handleSubmit}>
-                    <Row>
+                    <Row className="g-3">
                         <Col md={6}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Bill Name</Form.Label>
+                            <Form.Group>
+                                <Form.Label>Bill Name *</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
-                                    placeholder="e.g., Rent, Electric"
+                                    placeholder="e.g., Rent, Electric, Internet"
                                     required
                                 />
                             </Form.Group>
                         </Col>
                         <Col md={6}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Amount</Form.Label>
+                            <Form.Group>
+                                <Form.Label>Amount *</Form.Label>
                                 <Form.Control
                                     type="number"
                                     name="amount"
@@ -62,16 +62,14 @@ export default function BillForm({ onSubmit, onCancel }) {
                                     onChange={handleChange}
                                     placeholder="0.00"
                                     step="0.01"
-                                    min="0"
+                                    min="0.01"
                                     required
                                 />
                             </Form.Group>
                         </Col>
-                    </Row>
-                    <Row>
                         <Col md={6}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Category</Form.Label>
+                            <Form.Group>
+                                <Form.Label>Category *</Form.Label>
                                 <Form.Select
                                     name="category"
                                     value={formData.category}
@@ -87,8 +85,8 @@ export default function BillForm({ onSubmit, onCancel }) {
                             </Form.Group>
                         </Col>
                         <Col md={6}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Due Date</Form.Label>
+                            <Form.Group>
+                                <Form.Label>Due Date *</Form.Label>
                                 <Form.Control
                                     type="date"
                                     name="dueDate"
@@ -98,21 +96,23 @@ export default function BillForm({ onSubmit, onCancel }) {
                                 />
                             </Form.Group>
                         </Col>
+                        <Col xs={12}>
+                            <Form.Group>
+                                <Form.Label>Split Type *</Form.Label>
+                                <Form.Select
+                                    name="splitType"
+                                    value={formData.splitType}
+                                    onChange={handleChange}
+                                    required
+                                >
+                                    <option value="equal">Equal Split</option>
+                                    <option value="roomSize">By Room Size</option>
+                                    <option value="custom">Custom Weights</option>
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
                     </Row>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Split Type</Form.Label>
-                        <Form.Select
-                            name="splitType"
-                            value={formData.splitType}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="equal">Equal Split</option>
-                            <option value="roomSize">By Room Size</option>
-                            <option value="custom">Custom Weights</option>
-                        </Form.Select>
-                    </Form.Group>
-                    <div className="d-flex gap-2">
+                    <div className="d-flex gap-2 mt-4">
                         <Button variant="primary" type="submit">
                             Add Bill
                         </Button>

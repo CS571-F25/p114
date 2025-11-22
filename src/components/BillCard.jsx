@@ -18,32 +18,38 @@ export default function BillCard({ bill, onDelete }) {
     };
 
     return (
-        <Card className="h-100">
-            <Card.Body>
-                <div className="d-flex justify-content-between align-items-start mb-2">
-                    <Card.Title className="mb-0">{bill.name}</Card.Title>
-                    <Badge bg={getCategoryColor(bill.category)}>
+        <Card className="h-100 shadow-sm" style={{ minWidth: '250px' }}>
+            <Card.Body className="d-flex flex-column">
+                <div className="d-flex justify-content-between align-items-start mb-3">
+                    <Card.Title className="mb-0 fs-5">{bill.name}</Card.Title>
+                    <Badge bg={getCategoryColor(bill.category)} className="ms-2">
                         {bill.category}
                     </Badge>
                 </div>
-                <Card.Text>
-                    <div className="fs-3 fw-bold text-success mb-2">
+                <div className="flex-grow-1">
+                    <div className="fs-2 fw-bold text-success mb-3" style={{ whiteSpace: 'nowrap' }}>
                         ${bill.amount.toFixed(2)}
                     </div>
                     <div className="text-muted small">
-                        <div>Due: {formatDate(bill.dueDate)}</div>
-                        <div className="text-capitalize">Split: {bill.splitType}</div>
+                        <div className="mb-1">
+                            <strong>Due:</strong> {formatDate(bill.dueDate)}
+                        </div>
+                        <div className="text-capitalize">
+                            <strong>Split:</strong> {bill.splitType.replace(/([A-Z])/g, ' $1').trim()}
+                        </div>
                     </div>
-                </Card.Text>
+                </div>
             </Card.Body>
-            <Card.Footer className="bg-transparent">
-                <Button 
-                    variant="outline-danger" 
-                    size="sm" 
-                    onClick={() => onDelete(bill.id)}
-                >
-                    Delete
-                </Button>
+            <Card.Footer className="bg-transparent border-top">
+                <div className="d-grid">
+                    <Button 
+                        variant="outline-danger" 
+                        size="sm" 
+                        onClick={() => onDelete(bill.id)}
+                    >
+                        Delete Bill
+                    </Button>
+                </div>
             </Card.Footer>
         </Card>
     );

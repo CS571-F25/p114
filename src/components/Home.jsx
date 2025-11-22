@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 export default function Home() {
     return (
-        <Container>
+        <Container style={{ maxWidth: '1400px' }}>
             <Row className="mb-5">
                 <Col>
                     <h1 className="display-4">Welcome to RentSplit</h1>

@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 
 export default function Navigation() {
     return (
-        <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
-            <Container>
+        <Navbar bg="dark" variant="dark" expand="lg" className="mb-3">
+            <Container fluid>
                 <Navbar.Brand as={Link} to="/">RentSplit</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

@@ -2,7 +2,7 @@ import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
 
 export default function AboutMe() {
     return (
-        <Container>
+        <Container style={{ maxWidth: '1400px' }}>
             <Row className="mb-4">
                 <Col>
                     <h1>About RentSplit</h1>
