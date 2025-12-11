@@ -1,9 +1,36 @@
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import FeatureCard from './Featurecard';
 
 export default function Home() {
+    const features = [
+        {
+            icon: "💰",
+            title: "Split Bills",
+            description: "Divide rent, utilities, and expenses fairly among roommates",
+            linkTo: "/bills",
+            linkText: "View Bills",
+            disabled: false
+        },
+        {
+            icon: "👥",
+            title: "Manage Roommates",
+            description: "Track household members and their share percentages",
+            linkTo: "/roommates",
+            linkText: "View Roommates",
+            disabled: false
+        },
+        {
+            icon: "📊",
+            title: "Visualize Splits",
+            description: "See who owes what with dynamic charts and summaries",
+            linkTo: "/bills",
+            linkText: "View Summary",
+            disabled: false
+        }
+    ];
+
     return (
-        <Container style={{ maxWidth: '1400px' }}>
+        <Container style={{ maxWidth: '1400px' }} className="py-4">
             <Row className="mb-5">
                 <Col>
                     <h1 className="display-4">Welcome to RentSplit</h1>
@@ -13,61 +40,29 @@ export default function Home() {
                 </Col>
             </Row>
 
-            <Row className="g-4">
-                <Col md={4}>
-                    <Card className="h-100 text-center">
-                        <Card.Body>
-                            <div className="fs-1 mb-3">💰</div>
-                            <Card.Title>Split Bills</Card.Title>
-                            <Card.Text>
-                                Divide rent, utilities, and expenses fairly among roommates
-                            </Card.Text>
-                            <Button as={Link} to="/bills" variant="primary">
-                                View Bills
-                            </Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-
-                <Col md={4}>
-                    <Card className="h-100 text-center">
-                        <Card.Body>
-                            <div className="fs-1 mb-3">📋</div>
-                            <Card.Title>Track Chores</Card.Title>
-                            <Card.Text>
-                                Organize household tasks with a Kanban-style board
-                            </Card.Text>
-                            <Button variant="secondary" disabled>
-                                Coming Soon
-                            </Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-
-                <Col md={4}>
-                    <Card className="h-100 text-center">
-                        <Card.Body>
-                            <div className="fs-1 mb-3">📊</div>
-                            <Card.Title>Visualize Splits</Card.Title>
-                            <Card.Text>
-                                See who owes what with dynamic charts and ledgers
-                            </Card.Text>
-                            <Button variant="secondary" disabled>
-                                Coming Soon
-                            </Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
+            <Row className="g-4 mb-5">
+                {features.map((feature, index) => (
+                    <Col md={4} key={index}>
+                        <FeatureCard 
+                            icon={feature.icon}
+                            title={feature.title}
+                            description={feature.description}
+                            linkTo={feature.linkTo}
+                            linkText={feature.linkText}
+                            disabled={feature.disabled}
+                        />
+                    </Col>
+                ))}
             </Row>
 
-            <Row className="mt-5">
+            <Row>
                 <Col>
                     <Card bg="light">
                         <Card.Body>
-                            <h3>Getting Started</h3>
-                            <ol>
-                                <li>Create a household and invite your roommates</li>
-                                <li>Add your bills and set split rules</li>
+                            <h2 className="h4">Getting Started</h2>
+                            <ol className="mb-0">
+                                <li className="mb-2">Add your roommates and set their share percentages</li>
+                                <li className="mb-2">Create bills and choose how to split them</li>
                                 <li>Track payments and settle up easily</li>
                             </ol>
                         </Card.Body>

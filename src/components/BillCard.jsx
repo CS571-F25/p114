@@ -17,27 +17,38 @@ export default function BillCard({ bill, onDelete }) {
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     };
 
+    const formatSplitType = (splitType) => {
+        const types = {
+            'equal': 'Equal Split',
+            'roomSize': 'By Room Size',
+            'custom': 'Custom Weights'
+        };
+        return types[splitType] || splitType;
+    };
+
     return (
-        <Card className="h-100 shadow-sm" style={{ minWidth: '250px' }}>
+        <Card className="h-100 shadow-sm">
             <Card.Body className="d-flex flex-column">
                 <div className="d-flex justify-content-between align-items-start mb-3">
-                    <Card.Title className="mb-0 fs-5">{bill.name}</Card.Title>
+                    <Card.Title as="h2" className="h5 mb-0">{bill.name}</Card.Title>
                     <Badge bg={getCategoryColor(bill.category)} className="ms-2">
                         {bill.category}
                     </Badge>
                 </div>
                 <div className="flex-grow-1">
-                    <div className="fs-2 fw-bold text-success mb-3" style={{ whiteSpace: 'nowrap' }}>
+                    <p className="fs-2 fw-bold text-success mb-3" aria-label={`Amount: $${bill.amount.toFixed(2)}`}>
                         ${bill.amount.toFixed(2)}
-                    </div>
-                    <div className="text-muted small">
+                    </p>
+                    <dl className="text-muted small mb-0">
                         <div className="mb-1">
-                            <strong>Due:</strong> {formatDate(bill.dueDate)}
+                            <dt className="d-inline">Due:</dt>
+                            <dd className="d-inline ms-1">{formatDate(bill.dueDate)}</dd>
                         </div>
-                        <div className="text-capitalize">
-                            <strong>Split:</strong> {bill.splitType.replace(/([A-Z])/g, ' $1').trim()}
+                        <div>
+                            <dt className="d-inline">Split:</dt>
+                            <dd className="d-inline ms-1">{formatSplitType(bill.splitType)}</dd>
                         </div>
-                    </div>
+                    </dl>
                 </div>
             </Card.Body>
             <Card.Footer className="bg-transparent border-top">
@@ -46,6 +57,7 @@ export default function BillCard({ bill, onDelete }) {
                         variant="outline-danger" 
                         size="sm" 
                         onClick={() => onDelete(bill.id)}
+                        aria-label={`Delete ${bill.name} bill`}
                     >
                         Delete Bill
                     </Button>

@@ -36,12 +36,14 @@ export default function BillForm({ onSubmit, onCancel }) {
     return (
         <Card className="shadow-sm">
             <Card.Body>
-                <Card.Title className="mb-4">Add New Bill</Card.Title>
+                <Card.Title as="h2" className="h4 mb-4">Add New Bill</Card.Title>
                 <Form onSubmit={handleSubmit}>
                     <Row className="g-3">
                         <Col md={6}>
-                            <Form.Group>
-                                <Form.Label>Bill Name *</Form.Label>
+                            <Form.Group controlId="billName">
+                                <Form.Label>
+                                    Bill Name <span aria-hidden="true">*</span>
+                                </Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="name"
@@ -49,12 +51,15 @@ export default function BillForm({ onSubmit, onCancel }) {
                                     onChange={handleChange}
                                     placeholder="e.g., Rent, Electric, Internet"
                                     required
+                                    aria-required="true"
                                 />
                             </Form.Group>
                         </Col>
                         <Col md={6}>
-                            <Form.Group>
-                                <Form.Label>Amount *</Form.Label>
+                            <Form.Group controlId="billAmount">
+                                <Form.Label>
+                                    Amount ($) <span aria-hidden="true">*</span>
+                                </Form.Label>
                                 <Form.Control
                                     type="number"
                                     name="amount"
@@ -64,17 +69,21 @@ export default function BillForm({ onSubmit, onCancel }) {
                                     step="0.01"
                                     min="0.01"
                                     required
+                                    aria-required="true"
                                 />
                             </Form.Group>
                         </Col>
                         <Col md={6}>
-                            <Form.Group>
-                                <Form.Label>Category *</Form.Label>
+                            <Form.Group controlId="billCategory">
+                                <Form.Label>
+                                    Category <span aria-hidden="true">*</span>
+                                </Form.Label>
                                 <Form.Select
                                     name="category"
                                     value={formData.category}
                                     onChange={handleChange}
                                     required
+                                    aria-required="true"
                                 >
                                     <option value="Housing">Housing</option>
                                     <option value="Utilities">Utilities</option>
@@ -85,25 +94,31 @@ export default function BillForm({ onSubmit, onCancel }) {
                             </Form.Group>
                         </Col>
                         <Col md={6}>
-                            <Form.Group>
-                                <Form.Label>Due Date *</Form.Label>
+                            <Form.Group controlId="billDueDate">
+                                <Form.Label>
+                                    Due Date <span aria-hidden="true">*</span>
+                                </Form.Label>
                                 <Form.Control
                                     type="date"
                                     name="dueDate"
                                     value={formData.dueDate}
                                     onChange={handleChange}
                                     required
+                                    aria-required="true"
                                 />
                             </Form.Group>
                         </Col>
                         <Col xs={12}>
-                            <Form.Group>
-                                <Form.Label>Split Type *</Form.Label>
+                            <Form.Group controlId="billSplitType">
+                                <Form.Label>
+                                    Split Type <span aria-hidden="true">*</span>
+                                </Form.Label>
                                 <Form.Select
                                     name="splitType"
                                     value={formData.splitType}
                                     onChange={handleChange}
                                     required
+                                    aria-required="true"
                                 >
                                     <option value="equal">Equal Split</option>
                                     <option value="roomSize">By Room Size</option>
