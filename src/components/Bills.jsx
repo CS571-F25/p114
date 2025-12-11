@@ -1,45 +1,17 @@
 import { useState } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { useApp } from '../context/AppContext';
 import BillCard from './BillCard';
 import BillForm from './BillForm';
 import BillSummary from './BillSummary';
 
 export default function Bills() {
-    const [bills, setBills] = useState([
-        {
-            id: 1,
-            name: "Rent",
-            amount: 1500.00,
-            category: "Housing",
-            dueDate: "2024-12-01",
-            splitType: "equal"
-        },
-        {
-            id: 2,
-            name: "Electric",
-            amount: 120.00,
-            category: "Utilities",
-            dueDate: "2024-12-05",
-            splitType: "equal"
-        },
-        {
-            id: 3,
-            name: "Internet",
-            amount: 80.00,
-            category: "Internet",
-            dueDate: "2024-12-10",
-            splitType: "equal"
-        }
-    ]);
+    const { bills, addBill, deleteBill } = useApp();
     const [showForm, setShowForm] = useState(false);
 
-    const addBill = (newBill) => {
-        setBills([...bills, { ...newBill, id: Date.now() }]);
+    const handleAddBill = (newBill) => {
+        addBill(newBill);
         setShowForm(false);
-    };
-
-    const deleteBill = (id) => {
-        setBills(bills.filter(bill => bill.id !== id));
     };
 
     return (
@@ -65,7 +37,7 @@ export default function Bills() {
             {showForm && (
                 <Row className="mb-4" id="bill-form-section">
                     <Col>
-                        <BillForm onSubmit={addBill} onCancel={() => setShowForm(false)} />
+                        <BillForm onSubmit={handleAddBill} onCancel={() => setShowForm(false)} />
                     </Col>
                 </Row>
             )}

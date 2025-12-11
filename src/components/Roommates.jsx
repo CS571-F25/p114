@@ -1,48 +1,20 @@
 import { useState } from 'react';
 import { Container, Row, Col, Button, Card, Alert } from 'react-bootstrap';
+import { useApp } from '../context/AppContext';
 import RoommateCard from './RoommateCard';
 import RoommateForm from './RoommateForm';
+import SettleUpSummary from './SettleUpSummary';
 
 export default function Roommates() {
-    const [roommates, setRoommates] = useState([
-        {
-            id: 1,
-            name: "Alex Johnson",
-            email: "alex@example.com",
-            sharePercentage: 40,
-            owes: 250.00,
-            paidAmount: 500.00
-        },
-        {
-            id: 2,
-            name: "Sam Williams",
-            email: "sam@example.com",
-            sharePercentage: 35,
-            owes: 180.00,
-            paidAmount: 420.00
-        },
-        {
-            id: 3,
-            name: "Jordan Lee",
-            email: "jordan@example.com",
-            sharePercentage: 25,
-            owes: 120.00,
-            paidAmount: 300.00
-        }
-    ]);
+    const { roommates, addRoommate, deleteRoommate, totalExpenses, getRoommateBalances } = useApp();
     const [showForm, setShowForm] = useState(false);
 
     const totalShare = roommates.reduce((sum, r) => sum + r.sharePercentage, 0);
-    const totalOwed = roommates.reduce((sum, r) => sum + r.owes, 0);
-    const totalPaid = roommates.reduce((sum, r) => sum + r.paidAmount, 0);
+    const roommateBalances = getRoommateBalances();
 
-    const addRoommate = (newRoommate) => {
-        setRoommates([...roommates, { ...newRoommate, id: Date.now() }]);
+    const handleAddRoommate = (newRoommate) => {
+        addRoommate(newRoommate);
         setShowForm(false);
-    };
-
-    const deleteRoommate = (id) => {
-        setRoommates(roommates.filter(r => r.id !== id));
     };
 
     return (
@@ -67,7 +39,7 @@ export default function Roommates() {
 
             {/* Summary Stats */}
             <Row className="mb-4 g-3">
-                <Col md={4}>
+                <Col md={3}>
                     <Card className="text-center h-100">
                         <Card.Body>
                             <Card.Title as="h2" className="h6 text-muted">Total Roommates</Card.Title>
@@ -75,7 +47,7 @@ export default function Roommates() {
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col md={4}>
+                <Col md={3}>
                     <Card className="text-center h-100">
                         <Card.Body>
                             <Card.Title as="h2" className="h6 text-muted">Share Allocated</Card.Title>
@@ -83,11 +55,21 @@ export default function Roommates() {
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col md={4}>
+                <Col md={3}>
                     <Card className="text-center h-100">
                         <Card.Body>
-                            <Card.Title as="h2" className="h6 text-muted">Outstanding Balance</Card.Title>
-                            <p className="display-6 mb-0 text-danger">${totalOwed.toFixed(2)}</p>
+                            <Card.Title as="h2" className="h6 text-muted">Total Bills</Card.Title>
+                            <p className="display-6 mb-0 text-success">${totalExpenses.toFixed(2)}</p>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={3}>
+                    <Card className="text-center h-100">
+                        <Card.Body>
+                            <Card.Title as="h2" className="h6 text-muted">Per Person (Equal)</Card.Title>
+                            <p className="display-6 mb-0 text-warning">
+                                ${roommates.length > 0 ? (totalExpenses / roommates.length).toFixed(2) : '0.00'}
+                            </p>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -99,11 +81,17 @@ export default function Roommates() {
                 </Alert>
             )}
 
+            {totalShare < 100 && totalShare > 0 && (
+                <Alert variant="warning" className="mb-4">
+                    Shares only add up to {totalShare}%. Consider adjusting percentages to reach 100%.
+                </Alert>
+            )}
+
             {showForm && (
                 <Row className="mb-4">
                     <Col>
                         <RoommateForm 
-                            onSubmit={addRoommate} 
+                            onSubmit={handleAddRoommate} 
                             onCancel={() => setShowForm(false)}
                             existingShareTotal={totalShare}
                         />
@@ -111,27 +99,40 @@ export default function Roommates() {
                 </Row>
             )}
 
-            <Row className="g-4">
-                {roommates.length === 0 ? (
-                    <Col md={8} className="mx-auto">
-                        <Card className="text-center p-5">
-                            <Card.Body>
-                                <h2 className="h4">No roommates yet</h2>
-                                <p className="text-muted">Add your first roommate to get started</p>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ) : (
-                    roommates.map(roommate => (
-                        <Col xs={12} md={6} lg={4} key={roommate.id}>
-                            <RoommateCard 
-                                roommate={roommate} 
-                                totalBills={totalPaid + totalOwed}
-                                onDelete={deleteRoommate} 
-                            />
-                        </Col>
-                    ))
-                )}
+            <Row>
+                {/* Settle Up Sidebar */}
+                <Col lg={4} className="mb-4">
+                    <SettleUpSummary 
+                        roommates={roommateBalances} 
+                        totalExpenses={totalExpenses} 
+                    />
+                </Col>
+
+                {/* Roommates Grid */}
+                <Col lg={8}>
+                    <Row className="g-4">
+                        {roommates.length === 0 ? (
+                            <Col xs={12}>
+                                <Card className="text-center p-5">
+                                    <Card.Body>
+                                        <h2 className="h4">No roommates yet</h2>
+                                        <p className="text-muted">Add your first roommate to get started</p>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        ) : (
+                            roommateBalances.map(roommate => (
+                                <Col xs={12} md={6} key={roommate.id}>
+                                    <RoommateCard 
+                                        roommate={roommate} 
+                                        totalBills={totalExpenses}
+                                        onDelete={deleteRoommate} 
+                                    />
+                                </Col>
+                            ))
+                        )}
+                    </Row>
+                </Col>
             </Row>
         </Container>
     );

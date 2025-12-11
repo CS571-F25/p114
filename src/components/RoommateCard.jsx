@@ -16,9 +16,8 @@ export default function RoommateCard({ roommate, totalBills, onDelete }) {
         return colors[hash % colors.length];
     };
 
-    const paidPercentage = totalBills > 0 
-        ? Math.round((roommate.paidAmount / totalBills) * 100) 
-        : 0;
+    // Calculate amount owed based on share percentage
+    const amountOwed = (roommate.sharePercentage / 100) * totalBills;
 
     return (
         <Card className="h-100 shadow-sm">
@@ -50,12 +49,12 @@ export default function RoommateCard({ roommate, totalBills, onDelete }) {
                 </div>
 
                 <div className="d-flex justify-content-between mb-2">
-                    <span className="text-muted">Owes:</span>
-                    <span className="fw-bold text-danger">${roommate.owes.toFixed(2)}</span>
+                    <span className="text-muted">Share of Bills:</span>
+                    <span className="fw-bold text-primary">${amountOwed.toFixed(2)}</span>
                 </div>
                 <div className="d-flex justify-content-between mb-3">
-                    <span className="text-muted">Paid:</span>
-                    <span className="fw-bold text-success">${roommate.paidAmount.toFixed(2)}</span>
+                    <span className="text-muted">Based on:</span>
+                    <span className="text-muted">{roommate.sharePercentage}% of ${totalBills.toFixed(2)}</span>
                 </div>
             </Card.Body>
             <Card.Footer className="bg-transparent">
