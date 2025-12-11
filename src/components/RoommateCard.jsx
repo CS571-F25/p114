@@ -20,7 +20,7 @@ export default function RoommateCard({ roommate, totalBills, onDelete }) {
     const amountOwed = (roommate.sharePercentage / 100) * totalBills;
 
     return (
-        <Card className="h-100 shadow-sm">
+        <Card className="h-100 shadow-sm" style={{ minWidth: '280px' }}>
             <Card.Body>
                 <div className="d-flex align-items-center mb-3">
                     <div 

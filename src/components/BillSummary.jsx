@@ -29,14 +29,14 @@ export default function BillSummary({ bills }) {
     }
 
     return (
-        <Card className="shadow-sm mb-4">
+        <Card className="shadow-sm mb-4" style={{ minWidth: '280px' }}>
             <Card.Body>
                 <Card.Title as="h2" className="h4 mb-4">Expense Summary</Card.Title>
                 
                 {/* Total Overview */}
                 <div className="text-center mb-4 p-3 bg-light rounded">
                     <p className="text-muted mb-1">Total Monthly Expenses</p>
-                    <p className="display-5 mb-0 text-primary fw-bold">${totalAmount.toFixed(2)}</p>
+                    <p className="fs-3 fw-bold mb-0 text-primary">${totalAmount.toFixed(2)}</p>
                 </div>
 
                 {/* Category Breakdown */}

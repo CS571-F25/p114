@@ -22,6 +22,7 @@ export default function Navigation() {
                             <Nav.Link as={Link} to="/">Home</Nav.Link>
                             <Nav.Link as={Link} to="/bills">Bills</Nav.Link>
                             <Nav.Link as={Link} to="/roommates">Roommates</Nav.Link>
+                            <Nav.Link as={Link} to="/payments">Payments</Nav.Link>
                             <Nav.Link as={Link} to="/about">About</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

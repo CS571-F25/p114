@@ -39,35 +39,35 @@ export default function Roommates() {
 
             {/* Summary Stats */}
             <Row className="mb-4 g-3">
-                <Col md={3}>
+                <Col xs={6} lg={3}>
                     <Card className="text-center h-100">
                         <Card.Body>
                             <Card.Title as="h2" className="h6 text-muted">Total Roommates</Card.Title>
-                            <p className="display-6 mb-0 text-primary">{roommates.length}</p>
+                            <p className="fs-3 fw-bold mb-0 text-primary">{roommates.length}</p>
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col md={3}>
+                <Col xs={6} lg={3}>
                     <Card className="text-center h-100">
                         <Card.Body>
                             <Card.Title as="h2" className="h6 text-muted">Share Allocated</Card.Title>
-                            <p className="display-6 mb-0 text-info">{totalShare}%</p>
+                            <p className="fs-3 fw-bold mb-0 text-info">{totalShare}%</p>
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col md={3}>
+                <Col xs={6} lg={3}>
                     <Card className="text-center h-100">
                         <Card.Body>
                             <Card.Title as="h2" className="h6 text-muted">Total Bills</Card.Title>
-                            <p className="display-6 mb-0 text-success">${totalExpenses.toFixed(2)}</p>
+                            <p className="fs-3 fw-bold mb-0 text-success">${totalExpenses.toFixed(2)}</p>
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col md={3}>
+                <Col xs={6} lg={3}>
                     <Card className="text-center h-100">
                         <Card.Body>
                             <Card.Title as="h2" className="h6 text-muted">Per Person (Equal)</Card.Title>
-                            <p className="display-6 mb-0 text-warning">
+                            <p className="fs-3 fw-bold mb-0 text-warning">
                                 ${roommates.length > 0 ? (totalExpenses / roommates.length).toFixed(2) : '0.00'}
                             </p>
                         </Card.Body>
@@ -100,16 +100,8 @@ export default function Roommates() {
             )}
 
             <Row>
-                {/* Settle Up Sidebar */}
-                <Col lg={4} className="mb-4">
-                    <SettleUpSummary 
-                        roommates={roommateBalances} 
-                        totalExpenses={totalExpenses} 
-                    />
-                </Col>
-
-                {/* Roommates Grid */}
-                <Col lg={8}>
+                {/* Roommates Grid - shown first on smaller screens */}
+                <Col xl={8} className="order-xl-1 order-2">
                     <Row className="g-4">
                         {roommates.length === 0 ? (
                             <Col xs={12}>
@@ -122,7 +114,7 @@ export default function Roommates() {
                             </Col>
                         ) : (
                             roommateBalances.map(roommate => (
-                                <Col xs={12} md={6} key={roommate.id}>
+                                <Col xs={12} sm={6} xl={6} key={roommate.id}>
                                     <RoommateCard 
                                         roommate={roommate} 
                                         totalBills={totalExpenses}
@@ -132,6 +124,14 @@ export default function Roommates() {
                             ))
                         )}
                     </Row>
+                </Col>
+
+                {/* Settle Up Sidebar - shown on right at xl, on top at smaller */}
+                <Col xl={4} className="mb-4 order-xl-2 order-1">
+                    <SettleUpSummary 
+                        roommates={roommateBalances} 
+                        totalExpenses={totalExpenses} 
+                    />
                 </Col>
             </Row>
         </Container>

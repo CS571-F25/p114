@@ -3,7 +3,7 @@ import { Card, ListGroup, Badge, Table } from 'react-bootstrap';
 export default function SettleUpSummary({ roommates = [], totalExpenses = 0 }) {
     if (roommates.length === 0) {
         return (
-            <Card className="shadow-sm">
+            <Card className="shadow-sm" style={{ minWidth: '280px' }}>
                 <Card.Body>
                     <Card.Title as="h2" className="h5 mb-3">Settle Up</Card.Title>
                     <p className="text-muted text-center mb-0">Add roommates to see bill splits</p>
@@ -22,14 +22,14 @@ export default function SettleUpSummary({ roommates = [], totalExpenses = 0 }) {
     const equalSplit = totalExpenses / roommates.length;
 
     return (
-        <Card className="shadow-sm">
+        <Card className="shadow-sm" style={{ minWidth: '280px' }}>
             <Card.Body>
                 <Card.Title as="h2" className="h5 mb-3">Bill Breakdown</Card.Title>
                 
                 {/* Total */}
                 <div className="text-center mb-4 p-3 bg-light rounded">
                     <p className="text-muted mb-1 small">Total Monthly Bills</p>
-                    <p className="display-6 mb-0 text-primary fw-bold">${totalExpenses.toFixed(2)}</p>
+                    <p className="fs-3 fw-bold mb-0 text-primary">${totalExpenses.toFixed(2)}</p>
                 </div>
 
                 {/* By Share Percentage */}

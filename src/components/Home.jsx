@@ -20,11 +20,19 @@ export default function Home() {
             disabled: false
         },
         {
+            icon: "💳",
+            title: "Track Payments",
+            description: "Record who paid bills and transfer money between roommates",
+            linkTo: "/payments",
+            linkText: "View Payments",
+            disabled: false
+        },
+        {
             icon: "📊",
-            title: "Visualize Splits",
-            description: "See who owes what with dynamic charts and summaries",
-            linkTo: "/bills",
-            linkText: "View Summary",
+            title: "Settle Up",
+            description: "See who owes what and settle balances with one click",
+            linkTo: "/payments",
+            linkText: "Settle Now",
             disabled: false
         }
     ];
@@ -42,7 +50,7 @@ export default function Home() {
 
             <Row className="g-4 mb-5">
                 {features.map((feature, index) => (
-                    <Col md={4} key={index}>
+                    <Col sm={6} lg={3} key={index}>
                         <FeatureCard 
                             icon={feature.icon}
                             title={feature.title}

@@ -27,7 +27,7 @@ export default function BillCard({ bill, onDelete }) {
     };
 
     return (
-        <Card className="h-100 shadow-sm">
+        <Card className="h-100 shadow-sm" style={{ minWidth: '280px' }}>
             <Card.Body className="d-flex flex-column">
                 <div className="d-flex justify-content-between align-items-start mb-3">
                     <Card.Title as="h2" className="h5 mb-0">{bill.name}</Card.Title>
@@ -36,7 +36,7 @@ export default function BillCard({ bill, onDelete }) {
                     </Badge>
                 </div>
                 <div className="flex-grow-1">
-                    <p className="fs-2 fw-bold text-success mb-3" aria-label={`Amount: $${bill.amount.toFixed(2)}`}>
+                    <p className="fs-3 fw-bold text-success mb-3" aria-label={`Amount: $${bill.amount.toFixed(2)}`}>
                         ${bill.amount.toFixed(2)}
                     </p>
                     <dl className="text-muted small mb-0">

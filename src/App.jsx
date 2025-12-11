@@ -5,6 +5,7 @@ import Navigation from './components/Navigation'
 import Home from './components/Home'
 import Bills from './components/Bills'
 import Roommates from './components/Roommates'
+import Payments from './components/Payments'
 import AboutMe from './components/AboutMe'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/bills" element={<Bills />} />
               <Route path="/roommates" element={<Roommates />} />
+              <Route path="/payments" element={<Payments />} />
               <Route path="/about" element={<AboutMe />} />
             </Routes>
           </main>

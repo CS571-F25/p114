@@ -43,13 +43,8 @@ export default function Bills() {
             )}
 
             <Row>
-                {/* Summary Sidebar */}
-                <Col lg={4} className="mb-4">
-                    <BillSummary bills={bills} />
-                </Col>
-
-                {/* Bills Grid */}
-                <Col lg={8}>
+                {/* Bills Grid - shown first, takes full width on smaller screens */}
+                <Col xl={8} className="order-xl-1 order-2">
                     <Row className="g-4">
                         {bills.length === 0 ? (
                             <Col xs={12}>
@@ -62,12 +57,17 @@ export default function Bills() {
                             </Col>
                         ) : (
                             bills.map(bill => (
-                                <Col xs={12} md={6} key={bill.id}>
+                                <Col xs={12} sm={6} xl={6} key={bill.id}>
                                     <BillCard bill={bill} onDelete={deleteBill} />
                                 </Col>
                             ))
                         )}
                     </Row>
+                </Col>
+
+                {/* Summary Sidebar - shown on right at xl, on top at smaller */}
+                <Col xl={4} className="mb-4 order-xl-2 order-1">
+                    <BillSummary bills={bills} />
                 </Col>
             </Row>
         </Container>
